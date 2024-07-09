@@ -5,14 +5,14 @@ use App\Models\Job;
 
 Route::get('/', function () {
     $jobs = Job::all();
-    dd($jobs);
-    //  return view('home');
+    return view('home');
 });
 
 
-Route::get('/jobs', function ()  {
+Route::get('/jobs', function () {
+    $jobs = Job::with('employer')->simplePaginate(3);             //Lazy problem resolved
     return view('jobs', [
-        'jobs' => Job::all()
+        'jobs' => $jobs
     ]);
 });
 
